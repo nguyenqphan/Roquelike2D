@@ -29,7 +29,7 @@ public abstract class MovingObject : MonoBehaviour {
 		if(hit.transform == null)
 		{
 			//start to move into the end position if nothing was hit
-			StartCoroutine(SmoothMovement);
+			StartCoroutine(SmoothMovement(end));
 			return true;
 		}
 
@@ -53,7 +53,7 @@ public abstract class MovingObject : MonoBehaviour {
 	protected virtual void AttempMove<T>(int xDir, int yDir) where T : Component
 	{
 		RaycastHit2D hit;
-		bool canMove = Move (xDir, yDir, hit);
+		bool canMove = Move (xDir, yDir,out hit);
 
 		if (hit.transform == null)
 			return;
