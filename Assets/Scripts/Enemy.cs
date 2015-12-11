@@ -9,6 +9,9 @@ public class Enemy : MovingObject {
 	private Transform target; //store the position of the player. Enemies goes after the target
 	private bool skipMove; //cause enemies to move every other turn.
 
+	public AudioClip enemyAttack1;
+	public AudioClip enemyAttack2;
+
 	// Use this for initialization
 	protected override void Start () {
 
@@ -54,6 +57,8 @@ public class Enemy : MovingObject {
 		animator.SetTrigger ("EnemyAttack");
 
 		hitPlayer.LoseFood (playerDamage);
+
+		SoundManager.instance.RandomizeSfx (enemyAttack1, enemyAttack2);
 
 	}
 
