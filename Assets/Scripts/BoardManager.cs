@@ -101,6 +101,7 @@ public class BoardManager : MonoBehaviour {
 	//will be called from the game manager class to set up the board
 	public void SetupScene(int level)
 	{
+		Debug.Log ("I was about to set up a scene");
 		BoardSetup ();
 		InitialiseList ();
 		LayoutObjectAtRandom (wallTiles, wallCount.minimum, wallCount.maximum);

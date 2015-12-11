@@ -59,14 +59,17 @@ public class Player : MovingObject {
 		GameManager.instance.playersTurn = false;
 	}
 
-	private void OntriggerEnter2D(Collider2D other){
+	protected void OnTriggerEnter2D(Collider2D other){
+
+		Debug.Log ("I was here");
 		if (other.tag == "Exit") {
+			Debug.Log("I Will load another level");
 			Invoke ("Restart", restartLevelDelay);
 			enabled = false;
-		} else if (other.tag == "food") {
+		} else if (other.tag == "Food") {
 			food += pointsPerFood;
 			other.gameObject.SetActive(false);
-		}else if(other.tag == "soda"){
+		}else if(other.tag == "Soda"){
 			food += pointsPerSoda;
 			other.gameObject.SetActive(false);
 
@@ -81,7 +84,9 @@ public class Player : MovingObject {
 	}
 
 	private void Restart(){
+
 		Application.LoadLevel (Application.loadedLevel);
+		Debug.Log ("I just loaded a level");
 	}
 
 	public void LoseFood(int loss){
