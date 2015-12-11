@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Player : MovingObject {
 
@@ -7,6 +8,7 @@ public class Player : MovingObject {
 	public int pointsPerFood = 10; //add 10 points when picking up
 	public int pointsPerSoda = 20; //add 20 points when picking up
 	public float restartLevelDelay = 1f; //wait for a second to restart a level
+	public Text foodText;
 
 	private Animator animator; //store animaiton
 	private int food; //food points for player to stay alive
@@ -17,6 +19,8 @@ public class Player : MovingObject {
 	protected override void Start () {
 		animator = GetComponent<Animator>();
 		food = GameManager.instance.playerFoodPoints;
+
+		foodText.text = "Food: " + food;
 
 		base.Start ();
 	}
@@ -49,6 +53,7 @@ public class Player : MovingObject {
 
 	protected override void AttemptMove<T>(int xDir, int yDir){
 		food--;
+		foodText.text = "Food: " + food;
 
 		base.AttemptMove<T> (xDir, yDir);
 
@@ -68,9 +73,12 @@ public class Player : MovingObject {
 			enabled = false;
 		} else if (other.tag == "Food") {
 			food += pointsPerFood;
+			foodText.text = "+" + pointsPerFood + " Food: "+ food;
 			other.gameObject.SetActive(false);
 		}else if(other.tag == "Soda"){
 			food += pointsPerSoda;
+			foodText.text = "+" + pointsPerSoda + " Food: "+ food;
+
 			other.gameObject.SetActive(false);
 
 		}
@@ -92,6 +100,7 @@ public class Player : MovingObject {
 	public void LoseFood(int loss){
 		animator.SetTrigger ("playerHit");
 		food -= loss;
+		foodText.text = "-" + loss + " Food:" + food;
 		CheckIfGameOver ();
 	}
 
